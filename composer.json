@@ -13,7 +13,7 @@
     "require": {
         "guzzlehttp/guzzle": "^7.2",
         "nesbot/carbon": "^2.43",
-        "fifthgate/objectivity-core": "^0.2.4"
+        "fifthgate/objectivity-core": "0.3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3.3",
