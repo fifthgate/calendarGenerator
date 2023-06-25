@@ -14,7 +14,7 @@ class CalendarWeekTest extends CalendarServiceTestCase
         $startDate = new \DateTime('2012-01-01');
         $endDate = clone $startDate;
         $endDate = $startDate->modify('last day of this week');
-        $calendarWeek = CalendarGeneratorService::generateCalendarWeek($startDate, $endDate);
+        $calendarWeek = CalendarGeneratorService::generateCalendarWeek($startDate);
         $this->assertEquals('week', $calendarWeek->getPeriodType());
         $events = $this->generateTestEvents('2012');
         $calendarWeek->injectEvents($events);

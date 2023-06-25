@@ -75,7 +75,7 @@ class CalendarMonth extends AbstractCalendarPeriod implements CalendarMonthInter
     public function getWeekByISOWeekNumber(string $weekNumber) : ? CalendarWeekInterface
     {
         foreach ($this->weeks as $week) {
-            if ($week->getISOWeekNumber() == $weekNumber) {
+            if ($week->getISOWeekNumber() === $weekNumber) {
                 return $week;
             }
         }

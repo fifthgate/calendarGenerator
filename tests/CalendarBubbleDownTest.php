@@ -12,20 +12,24 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
     public function testCalendarBubbledown()
     {
         $year = date('Y');
+        
         $calendarYear = $this->calendarService->getCalendarForYear($year);
+        
         $events = $this->generateTestEvents($year);
+
 
         $calendarYear->injectEvents($events);
 
         //This month has one test event, from 1st to 2nd of January.
         $month = $calendarYear->getMonth(1);
-
+        
         $this->assertTrue($month->hasEvents());
         $this->assertEquals(1, $month->getEvents()->count());
 
         //Now we drill down to the week.
         $week = $month->getNthWeek(1);
 
+        var_dump($week->getPeriodName());
         $this->assertTrue($week->hasEvents());
         $this->assertEquals(1, $week->getEvents()->count());
 

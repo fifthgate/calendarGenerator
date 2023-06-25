@@ -20,14 +20,14 @@ class CalendarServiceTestCase extends BaseTestCase
             [
                 'title' => 'Event 1',
                 'body' => '<p>Lorem Ipsum Dolor sit amet</p>',
-                'startDate' => '01-01-'.$year,
-                'endDate' => '02-01-'.$year
+                'startDate' => sprintf('01-01-%s', $year),
+                'endDate' => sprintf('02-01-%s', $year),
             ],
             [
                 'title' => 'Event 2',
                 'body' => '<p>Lorem Ipsum Dolor sit amet</p>',
-                'startDate' => '12-12-'.$year,
-                'endDate' => '21-12-'.$year
+                'startDate' => sprintf('12-12-%s', $year),
+                'endDate' => sprintf('21-12-%s', $year),
             ],
         ];
 

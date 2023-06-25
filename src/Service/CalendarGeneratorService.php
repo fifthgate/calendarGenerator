@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Date;
 
 class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 {
-    protected $yearsCache;
+    protected array $yearsCache;
 
     public function __construct(array $yearsCache)
     {
@@ -82,9 +82,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $weeks = new DatePeriod($firstWeekDayOfMonth, $weekInterval, $lastWeekDayOfMonth);
 
         foreach ($weeks as $weekStart) {
-            $weekEnd = clone $weekStart;
-            $weekEnd->modify('+ 7 days');
-            $weekCollection->add(self::generateCalendarWeek($weekStart, $weekEnd));
+            $weekCollection->add(self::generateCalendarWeek($weekStart));
         }
 
         foreach ($days as $day) {
@@ -95,8 +93,9 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         return $calendarMonth;
     }
 
-    public static function generateCalendarWeek(DateTimeInterface $weekStart, DateTimeInterface $weekEnd) : CalendarWeekInterface
+    public static function generateCalendarWeek(DateTimeInterface $weekStart) : CalendarWeekInterface
     {
+        $weekEnd = self::getLastDayOfWeek($weekStart);
         $machineName = 'week_'.$weekStart->format('W').'_'.$weekStart->format('Y');
         $calendarWeek = new CalendarWeek($weekStart, $weekEnd, $machineName);
         $calendarWeek->setISOWeekNumber($weekStart->format('W'));
@@ -122,6 +121,6 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 
     public function getCalendarForYear(int $year) : CalendarYearInterface
     {
-        return isset($this->yearCache[$year]) ? $this->yearCache[$year] : self::generateCalendarYear($year);
+        return isset($this->yearsCache[$year]) ? $this->yearsCache[$year] : self::generateCalendarYear($year);
     }
 }

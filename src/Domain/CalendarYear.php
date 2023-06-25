@@ -40,6 +40,7 @@ class CalendarYear extends AbstractCalendarPeriod implements CalendarYearInterfa
     public function injectEvents(CalendarRenderableEventCollectionInterface $events)
     {
         $this->events = $events;
+        
         foreach ($this->getMonths() as $month) {
             $filteredEvents = $events->filterBetweenDates($month->getPeriodStart(), $month->getPeriodEnd());
             $month->injectEvents($filteredEvents);
