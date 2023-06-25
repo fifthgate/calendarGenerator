@@ -14,10 +14,10 @@ use Fifthgate\CalendarGenerator\Domain\CalendarYear;
 use Fifthgate\CalendarGenerator\Domain\CalendarMonth;
 use Fifthgate\CalendarGenerator\Domain\CalendarDay;
 use Fifthgate\CalendarGenerator\Domain\CalendarWeek;
-use Carbon\Carbon;
 use \DateInterval;
 use \DatePeriod;
 use \DateTimeInterface;
+use Illuminate\Support\Facades\Date;
 
 class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 {
@@ -28,10 +28,18 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $this->yearsCache = $yearsCache;
     }
 
+    private static function getFirstDayOfWeek(\DateTimeInterface $day): DateTimeInterface {
+        return clone $day->modify('sunday this week');
+    }
+
+    private static function getLastDayOfWeek(\DateTimeInterface $day): DateTimeInterface {
+        return clone $day->modify('saturday this week');
+    }
+
     public static function generateCalendarYear(int $year) : CalendarYearInterface
     {
-        $yearStart = new Carbon("01-01-{$year} 00:00:00");
-        $yearEnd = new Carbon("31-12-{$year} 23:59:59");
+        $yearStart = new \DateTime("01-01-{$year} 00:00:00");
+        $yearEnd = new \DateTime("31-12-{$year} 23:59:59");
         
         $monthInterval = new DateInterval('P1M');
         $months = new DatePeriod($yearStart, $monthInterval, $yearEnd);
@@ -42,7 +50,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 
         foreach ($months as $monthStart) {
             $monthEnd = clone $monthStart;
-            $monthEnd = $monthEnd->endOfMonth();
+            $monthEnd = $monthEnd->modify('last day of this month');
             $monthCollection->add(self::generateCalendarMonth($monthStart, $monthEnd));
         }
 
@@ -62,15 +70,11 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $dayInterval = new DateInterval('P1D');
         $weekInterval = new DateInterval('P7D');
 
-        Carbon::setWeekStartsAt(Carbon::SUNDAY);
-        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+        $firstWeekDayOfMonth = self::getFirstDayOfWeek($monthStart);
 
 
-        $firstWeekDayOfMonth = clone $monthStart;
-        $firstWeekDayOfMonth = $firstWeekDayOfMonth->startOfWeek();
+        $lastWeekDayOfMonth = self::getLastDayOfWeek($monthEnd);
 
-        $lastWeekDayOfMonth = clone $monthEnd;
-        $lastWeekDayOfMonth = $lastWeekDayOfMonth->endOfWeek();
 
         $calendarMonth->setPeriodName($monthStart->format('F'));
 

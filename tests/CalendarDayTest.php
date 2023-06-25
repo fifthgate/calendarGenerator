@@ -1,22 +1,17 @@
 <?php
 
-namespace Tests\Feature\Calendar;
+namespace Fifthgate\CalendarGenerator\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use Fifthgate\CalendarGenerator\Domain\CalendarMonth;
 use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
-use Carbon\Carbon;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarRenderableEventInterface;
-use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
+
 
 class CalendarDayTest extends CalendarServiceTestCase
 {
     public function testCalendarDay()
     {
-        $startDate = new Carbon('2012-01-01');
+        $startDate = new \DateTime('2012-01-01');
         $endDate = clone $startDate;
         $endDate->setTime(23, 59, 59);
         $calendarDay = CalendarGeneratorService::generateCalendarDay($startDate);

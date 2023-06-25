@@ -7,7 +7,6 @@ use Fifthgate\CalendarGenerator\CalendarGeneratorServiceProvider;
 use Fifthgate\CalendarGenerator\Service\Interfaces\CalendarGeneratorServiceInterface;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarEventCollection;
 use Fifthgate\CalendarGenerator\Domain\GenericCalendarEvent;
-use Carbon\Carbon;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
 
 class CalendarServiceTestCase extends BaseTestCase
@@ -36,8 +35,8 @@ class CalendarServiceTestCase extends BaseTestCase
             $eventCollection->add(new GenericCalendarEvent(
                 $testDatum['title'],
                 $testDatum['body'],
-                new Carbon($testDatum['startDate']),
-                new Carbon($testDatum['endDate'])
+                new \DateTime($testDatum['startDate']),
+                new \DateTime($testDatum['endDate'])
             ));
         }
         return $eventCollection;

@@ -1,18 +1,10 @@
 <?php
 
-namespace Tests\Feature\Calendar;
+namespace Fifthgate\CalendarGenerator\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-
-use Fifthgate\CalendarGenerator\Domain\CalendarMonth;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarWeekInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarDayInterface;
-use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
-use Carbon\Carbon;
-use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
-use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
-use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarRenderableEventInterface;
+
 use \DateTimeInterface;
 
 class CalendarBubbleDownTest extends CalendarServiceTestCase
@@ -27,11 +19,13 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
 
         //This month has one test event, from 1st to 2nd of January.
         $month = $calendarYear->getMonth(1);
+
         $this->assertTrue($month->hasEvents());
         $this->assertEquals(1, $month->getEvents()->count());
 
         //Now we drill down to the week.
         $week = $month->getNthWeek(1);
+
         $this->assertTrue($week->hasEvents());
         $this->assertEquals(1, $week->getEvents()->count());
 

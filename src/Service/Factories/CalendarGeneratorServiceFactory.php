@@ -4,13 +4,14 @@ namespace Fifthgate\CalendarGenerator\Service\Factories;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
 
 class CalendarGeneratorServiceFactory
 {
-    const CACHEKEY = 'calendar_service_years_cache';
+    private const CACHEKEY = 'calendar_service_years_cache';
+
+    private const DATEFORMAT = 'Y-m-d H:i:s';
 
     private $app;
 
@@ -19,15 +20,15 @@ class CalendarGeneratorServiceFactory
         $this->app = $app;
     }
 
-    public function __invoke(bool $testMode)
+    public function __invoke(bool $testMode = false): CalendarGeneratorService
     {
         $years = Cache::get(self::CACHEKEY);
         /**
          * Rebuild the index if there isn't a cached version available.
          */
         if (!$years or $testMode) {
-            $date = new Carbon;
-            Log::info("CalendarYear cache rebuilt at {$date}");
+            $date = new \DateTime();
+            Log::info(sprintf("CalendarYear cache rebuilt at %s", $date->format(self::DATEFORMAT)));
 
             $years = [];
             $currentYear = $date->format('Y');

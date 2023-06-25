@@ -1,13 +1,11 @@
 <?php
 
-namespace Tests\Feature\Calendar;
+namespace Fifthgate\CalendarGenerator\Tests;
 
 use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Fifthgate\CalendarGenerator\Domain\GenericCalendarEvent;
-use Carbon\Carbon;
 use \DateTimeInterface;
 
 class GenericCalendarEventTest extends CalendarServiceTestCase
@@ -16,8 +14,8 @@ class GenericCalendarEventTest extends CalendarServiceTestCase
     {
         $testTitle = "Test Title";
         $testBody = "Test Body";
-        $testStartDate = new Carbon("2020-12-01");
-        $testEndDate = new Carbon("2020-12-12");
+        $testStartDate = new \DateTime("2020-12-01");
+        $testEndDate = new \DateTime("2020-12-12");
         $trimmedBody = strip_tags(substr($testBody, 0, 200)).'...';
 
         $genericCalendarEvent = new GenericCalendarEvent(

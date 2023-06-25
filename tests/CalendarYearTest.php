@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Calendar;
+namespace Fifthgate\CalendarGenerator\Tests;
 
 use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
 
