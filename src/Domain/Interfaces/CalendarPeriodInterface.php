@@ -21,7 +21,7 @@ interface CalendarPeriodInterface
 
     public function getPeriodEnd() : DateTimeInterface;
 
-    public function isWithin(DateTimeInterface $start, DateTimeInterface $end, bool $inclusive = true);
+    public function isWithin(DateTimeInterface $start, DateTimeInterface $end, bool $inclusive = true): bool;
 
     public function hasEvents() : bool;
 }

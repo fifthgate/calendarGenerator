@@ -57,7 +57,7 @@ abstract class AbstractCalendarPeriod implements CalendarPeriodInterface
 
     abstract public function getEvents() : ? CalendarRenderableEventCollectionInterface;
 
-    public function isWithin(DateTimeInterface $start, DateTimeInterface $end, bool $inclusive = true)
+    public function isWithin(DateTimeInterface $start, DateTimeInterface $end, bool $inclusive = true): bool
     {
         return $inclusive ? $this->getPeriodStart() >= $start && $this->getPeriodEnd() <= $end : $this->getPeriodStart() > $start && $this->getPeriodEnd() < $end;
     }

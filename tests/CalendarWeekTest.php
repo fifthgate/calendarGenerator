@@ -2,6 +2,7 @@
 
 namespace Fifthgate\CalendarGenerator\Tests;
 
+use Carbon\Carbon;
 use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
 use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
@@ -11,9 +12,9 @@ class CalendarWeekTest extends CalendarServiceTestCase
 {
     public function testCalendarWeek()
     {
-        $startDate = new \DateTime('2012-01-01');
-        $endDate = clone $startDate;
-        $endDate = $startDate->modify('last day of this week');
+        $startDate = new Carbon('2012-01-01');
+        $endDate = CalendarGeneratorService::getLastDayOfWeek($startDate);
+
         $calendarWeek = CalendarGeneratorService::generateCalendarWeek($startDate);
         $this->assertEquals('week', $calendarWeek->getPeriodType());
         $events = $this->generateTestEvents('2012');

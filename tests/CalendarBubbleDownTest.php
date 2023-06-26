@@ -2,6 +2,8 @@
 
 namespace Fifthgate\CalendarGenerator\Tests;
 
+use Fifthgate\CalendarGenerator\Domain\Collection\CalendarEventCollection;
+use Fifthgate\CalendarGenerator\Domain\GenericCalendarEvent;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarWeekInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarDayInterface;
 
@@ -11,18 +13,19 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
 {
     public function testCalendarBubbledown()
     {
-        $year = date('Y');
+        $year = 2023;
         
-        $calendarYear = $this->calendarService->getCalendarForYear($year);
+        $calendarYear = $this->calendarService->getCalendarForYear(2023);
         
-        $events = $this->generateTestEvents($year);
 
-
+        $events = new CalendarEventCollection();
+        $event = new GenericCalendarEvent("Test Title", "Test Body", new \DateTime("2023-01-01"), new \DateTime("2023-01-02"));
+        $events->add($event);
         $calendarYear->injectEvents($events);
 
-        //This month has one test event, from 1st to 2nd of January.
+
+
         $month = $calendarYear->getMonth(1);
-        
         $this->assertTrue($month->hasEvents());
         $this->assertEquals(1, $month->getEvents()->count());
 
