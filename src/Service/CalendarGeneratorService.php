@@ -54,17 +54,18 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $monthCollection = new CalendarMonthCollection;
 
         foreach ($months as $monthStart) {
-            $monthEnd = clone $monthStart;
-            $monthEnd = $monthEnd->modify('last day of this month');
-            $monthCollection->add(self::generateCalendarMonth($monthStart, $monthEnd));
+            $monthCollection->add(self::generateCalendarMonth($monthStart));
         }
 
         $calendarYear->setMonths($monthCollection);
         return $calendarYear;
     }
 
-    public static function generateCalendarMonth(DateTimeInterface $monthStart, DateTimeInterface $monthEnd) : CalendarMonthInterface
+    public static function generateCalendarMonth(DateTimeInterface $monthStart) : CalendarMonthInterface
     {
+        $monthStart = new Carbon($monthStart);
+        $monthEnd = clone $monthStart;
+        $monthEnd->lastOfMonth();
         $dayCollection = new CalendarDayCollection;
         
         $weekCollection = new CalendarWeekCollection;
