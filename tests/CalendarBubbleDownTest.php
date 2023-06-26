@@ -29,7 +29,6 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
         //Now we drill down to the week.
         $week = $month->getNthWeek(1);
 
-        var_dump($week->getPeriodName());
         $this->assertTrue($week->hasEvents());
         $this->assertEquals(1, $week->getEvents()->count());
 
@@ -47,4 +46,5 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
         $this->assertNull($month->getDay(45));
         $this->assertNull($calendarYear->getMonth(13));
     }
+
 }

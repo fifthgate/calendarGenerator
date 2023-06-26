@@ -18,6 +18,7 @@ use \DateInterval;
 use \DatePeriod;
 use \DateTimeInterface;
 use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 
 class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 {
@@ -28,12 +29,16 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $this->yearsCache = $yearsCache;
     }
 
-    private static function getFirstDayOfWeek(\DateTimeInterface $day): DateTimeInterface {
-        return clone $day->modify('sunday this week');
+    public static function getFirstDayOfWeek(\DateTimeInterface $day): DateTimeInterface {
+
+        $firstDayOfWeek = new Carbon($day);
+        return $firstDayOfWeek->startOfWeek(Carbon::SUNDAY);
     }
 
-    private static function getLastDayOfWeek(\DateTimeInterface $day): DateTimeInterface {
-        return clone $day->modify('saturday this week');
+    public static function getLastDayOfWeek(\DateTimeInterface $day): DateTimeInterface {
+        $lastDayOfWeek = new Carbon($day);
+        $lastDayOfWeek->endOfWeek(Carbon::SATURDAY);
+        return $lastDayOfWeek;
     }
 
     public static function generateCalendarYear(int $year) : CalendarYearInterface
