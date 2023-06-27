@@ -46,9 +46,4 @@ class GenericCalendarEvent implements CalendarRenderableEventInterface
     {
         return $this->body;
     }
-
-    public function getPreview() : string
-    {
-        return strip_tags(substr($this->body, 0, 200)).'...';
-    }
 }

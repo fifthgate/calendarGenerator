@@ -27,7 +27,6 @@ class GenericCalendarEventTest extends CalendarServiceTestCase
 
         $this->assertEquals($testTitle, $genericCalendarEvent->getTitle());
         $this->assertEquals($testBody, $genericCalendarEvent->getBody());
-        $this->assertEquals($trimmedBody, $genericCalendarEvent->getPreview());
         $this->assertEquals($testStartDate, $genericCalendarEvent->getStartDate());
         $this->assertEquals($testEndDate, $genericCalendarEvent->getEndDate());
         $this->assertInstanceOf(DateTimeInterface::class, $genericCalendarEvent->getStartDate());

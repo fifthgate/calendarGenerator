@@ -10,8 +10,6 @@ interface CalendarRenderableEventInterface
 
     public function getBody() : string;
 
-    public function getPreview() : string;
-
     public function getStartDate() : DateTimeInterface;
 
     public function getEndDate() : DateTimeInterface;
