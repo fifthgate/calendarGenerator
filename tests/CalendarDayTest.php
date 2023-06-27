@@ -23,8 +23,15 @@ class CalendarDayTest extends CalendarServiceTestCase
         $this->assertTrue($calendarDay->hasEvents());
         $this->assertInstanceOf(CalendarRenderableEventCollectionInterface::class, $calendarDay->getEvents());
         $this->assertEquals(2, $calendarDay->getEvents()->count());
+
         foreach ($calendarDay->getEvents() as $event) {
             $this->assertInstanceOf(CalendarRenderableEventInterface::class, $event);
         }
+    }
+
+    public function testGetHours(): void {
+        $startDate = new \DateTime('2023-06-27');
+        $calendarDay = CalendarGeneratorService::generateCalendarDay($startDate);
+        $assertEquals(24, $calendarDay->getHours());
     }
 }
