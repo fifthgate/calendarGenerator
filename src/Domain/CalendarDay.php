@@ -34,6 +34,10 @@ class CalendarDay extends AbstractCalendarPeriod implements CalendarDayInterface
     public function injectEvents(CalendarRenderableEventCollectionInterface $events)
     {
         $this->events = $events;
+        foreach ($this->hours as $hour) {
+            $hour->injectEvents($events->filterBetweenDates($hour->getPeriodStart(), $hour->getPeriodEnd()));
+        }
+
     }
 
     public function getEvents() : ? CalendarRenderableEventCollectionInterface
@@ -43,6 +47,6 @@ class CalendarDay extends AbstractCalendarPeriod implements CalendarDayInterface
 
     public function getHours(): CalendarHourCollectionInterface
     {
-        return new CalendarHourCollection();
+        return $this->hours;
     }
 }

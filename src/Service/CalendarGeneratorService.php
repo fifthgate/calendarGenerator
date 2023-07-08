@@ -3,6 +3,7 @@
 namespace Fifthgate\CalendarGenerator\Service;
 
 use Carbon\CarbonInterface;
+use Fifthgate\CalendarGenerator\Domain\CalendarHour;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarDayCollection;
 
 use Fifthgate\CalendarGenerator\Service\Interfaces\CalendarGeneratorServiceInterface;
@@ -137,6 +138,13 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $dayEnd = clone $dayStart;
         $dayEnd->setTime(23, 59, 59);
         $hourInterval = new DateInterval('PT1H');
+        $hours = new DatePeriod($dayStart, $hourInterval, $dayEnd);
+        foreach ($hours as $hourStart) {
+            $hourEnd = clone $hourStart;
+            $hourEnd->modify('+59 Minutes');
+            $hourEnd->modify('+59 Seconds');
+            $calendarHours->add(new CalendarHour($hourStart, $hourEnd, $hourEnd->format('Y-m-d H:i') ));
+        }
         return $calendarHours;
     }
 

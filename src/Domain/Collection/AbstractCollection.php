@@ -4,7 +4,7 @@ namespace Fifthgate\CalendarGenerator\Domain\Collection;
 
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CollectionInterface;
 
-abstract class AbstractCollection implements CollectionInterface {
+class AbstractCollection implements CollectionInterface {
     protected array $collection = [];
 
     protected int $position;
@@ -138,6 +138,5 @@ abstract class AbstractCollection implements CollectionInterface {
         if ($this->offsetExists($offset)) {
             unset($this->collection[$offset]);
         }
-        
     }
 }
