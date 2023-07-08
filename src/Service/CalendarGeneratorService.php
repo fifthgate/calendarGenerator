@@ -4,6 +4,7 @@ namespace Fifthgate\CalendarGenerator\Service;
 
 use Carbon\CarbonInterface;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarDayCollection;
+
 use Fifthgate\CalendarGenerator\Service\Interfaces\CalendarGeneratorServiceInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarYearInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarMonthInterface;
@@ -12,6 +13,7 @@ use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarDayInterface;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarMonthCollection;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarWeekCollection;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarHourCollection;
+use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarHourCollectionInterface;
 use Fifthgate\CalendarGenerator\Domain\CalendarYear;
 use Fifthgate\CalendarGenerator\Domain\CalendarMonth;
 use Fifthgate\CalendarGenerator\Domain\CalendarDay;
@@ -44,13 +46,13 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 
     public static function generateCalendarYear(int $year) : CalendarYearInterface
     {
-        $yearStart = new \DateTime("01-01-{$year} 00:00:00");
-        $yearEnd = new \DateTime("31-12-{$year} 23:59:59");
+        $yearStart = new \DateTime(sprintf("01-01-%s 00:00:00", $year));
+        $yearEnd = new \DateTime(sprintf("31-12-%s 23:59:59", $year));
         
         $monthInterval = new DateInterval('P1M');
         $months = new DatePeriod($yearStart, $monthInterval, $yearEnd);
 
-        $calendarYear = new CalendarYear($yearStart, $yearEnd, "year_{$year}");
+        $calendarYear = new CalendarYear($yearStart, $yearEnd, sprintf("year_%s", $year));
         $calendarYear->setPeriodName($year);
         $monthCollection = new CalendarMonthCollection;
 
@@ -68,9 +70,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $monthEnd = clone $monthStart;
         $monthEnd->lastOfMonth();
         $dayCollection = new CalendarDayCollection();
-        
-        $weekCollection = new CalendarWeekCollection;
-        
+
         $machineName = strtolower($monthStart->format('M')).'_'.$monthStart->format('Y');
         $calendarMonth = new CalendarMonth($monthStart, $monthEnd, $machineName);
         
@@ -88,6 +88,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $days = new DatePeriod($monthStart, $dayInterval, $monthEnd);
         $weeks = new DatePeriod($firstWeekDayOfMonth, $weekInterval, $lastWeekDayOfMonth);
 
+        $weekCollection = new CalendarWeekCollection;
         foreach ($weeks as $weekStart) {
             $weekCollection->add(self::generateCalendarWeek($weekStart));
         }
@@ -102,6 +103,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
 
     public static function generateCalendarWeek(DateTimeInterface $weekStart) : CalendarWeekInterface
     {
+
         $weekEnd = self::getLastDayOfWeek($weekStart);
         $machineName = 'week_'.$weekStart->format('W').'_'.$weekStart->format('Y');
         $calendarWeek = new CalendarWeek($weekStart, $weekEnd, $machineName);
@@ -121,10 +123,24 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $dayEnd = clone $dayStart;
         $dayEnd->setTime(23, 59, 59);
         $machineName = $dayStart->format('Y-m-d');
-        $calendarDay = new CalendarDay($dayStart, $dayEnd, $machineName);
+        $calendarHours =self::generateCalendarHours($dayStart);
+        $calendarDay = new CalendarDay($dayStart, $dayEnd, $machineName, $calendarHours);
         $calendarDay->setPeriodName($dayStart->format('d'));
+
         return $calendarDay;
     }
+
+    public static function generateCalendarHours(\DateTimeInterface $dayStart): CalendarHourCollectionInterface
+    {
+        $calendarHours = new CalendarHourCollection();
+        $dayStart->setTime(0,0,0,);
+        $dayEnd = clone $dayStart;
+        $dayEnd->setTime(23, 59, 59);
+        $hourInterval = new DateInterval('PT1H');
+        return $calendarHours;
+    }
+
+
 
     public function getCalendarForYear(int $year) : CalendarYearInterface
     {

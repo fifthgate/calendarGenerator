@@ -13,11 +13,12 @@ class CalendarDay extends AbstractCalendarPeriod implements CalendarDayInterface
 {
     protected CalendarRenderableEventCollectionInterface $events;
 
-    public function __construct(DateTimeInterface $periodStart, DateTimeInterface $periodEnd, string $machineName)
+    protected CalendarHourCollectionInterface $hours;
+
+    public function __construct(DateTimeInterface $periodStart, DateTimeInterface $periodEnd, string $machineName, CalendarHourCollectionInterface $hours)
     {
         parent::__construct($periodStart, $periodEnd, $machineName);
-        $hours = new CalendarHourCollection();
-
+        $this->hours = $hours;
     }
 
     public function getPeriodType() : string
@@ -42,6 +43,6 @@ class CalendarDay extends AbstractCalendarPeriod implements CalendarDayInterface
 
     public function getHours(): CalendarHourCollectionInterface
     {
-
+        return new CalendarHourCollection();
     }
 }

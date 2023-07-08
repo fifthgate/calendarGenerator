@@ -23,8 +23,6 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
         $events->add($event);
         $calendarYear->injectEvents($events);
 
-
-
         $month = $calendarYear->getMonth(1);
         $this->assertTrue($month->hasEvents());
         $this->assertEquals(1, $month->getEvents()->count());
@@ -35,7 +33,7 @@ class CalendarBubbleDownTest extends CalendarServiceTestCase
         $this->assertTrue($week->hasEvents());
         $this->assertEquals(1, $week->getEvents()->count());
 
-        $isoWeek = $month->getWeekByISOWeekNumber("01");
+        $isoWeek = $month->getWeekByISOWeekNumber("1");
         $this->assertInstanceOf(CalendarWeekInterface::class, $isoWeek);
         $this->assertNull($month->getWeekByISOWeekNumber("45"));
 
