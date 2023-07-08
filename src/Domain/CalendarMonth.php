@@ -12,15 +12,14 @@ use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarWeekInterface;
 
 class CalendarMonth extends AbstractCalendarPeriod implements CalendarMonthInterface
 {
-    protected $days;
+    protected CalendarDayCollectionInterface $days;
 
-    protected $weeks;
+    protected CalendarWeekCollectionInterface $weeks;
 
     public function getPeriodType() : string
     {
         return 'month';
     }
-
 
     public function setDays(CalendarDayCollectionInterface $days)
     {

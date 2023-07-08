@@ -3,6 +3,7 @@
 namespace Fifthgate\CalendarGenerator\Service;
 
 use Carbon\CarbonInterface;
+use Fifthgate\CalendarGenerator\Domain\Collection\CalendarDayCollection;
 use Fifthgate\CalendarGenerator\Service\Interfaces\CalendarGeneratorServiceInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarYearInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarMonthInterface;
@@ -66,7 +67,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $monthStart = new Carbon($monthStart);
         $monthEnd = clone $monthStart;
         $monthEnd->lastOfMonth();
-        $dayCollection = new CalendarHourCollection;
+        $dayCollection = new CalendarDayCollection();
         
         $weekCollection = new CalendarWeekCollection;
         
@@ -107,7 +108,7 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
         $calendarWeek->setISOWeekNumber($weekStart->format('W'));
         $dayInterval = new DateInterval('P1D');
         $days = new DatePeriod($weekStart, $dayInterval, $weekEnd);
-        $dayCollection = new CalendarHourCollection;
+        $dayCollection = new CalendarDayCollection();
         foreach ($days as $day) {
             $dayCollection->add(self::generateCalendarDay($day));
         }

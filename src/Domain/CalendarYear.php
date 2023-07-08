@@ -10,7 +10,7 @@ use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarMonthInterface;
 
 class CalendarYear extends AbstractCalendarPeriod implements CalendarYearInterface
 {
-    protected $months;
+    protected CalendarMonthCollectionInterface $months;
 
     public function getPeriodType() : string
     {

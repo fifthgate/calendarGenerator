@@ -5,16 +5,16 @@ namespace Fifthgate\CalendarGenerator\Domain\Collection;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CollectionInterface;
 
 abstract class AbstractCollection implements CollectionInterface {
-    protected $collection = [];
+    protected array $collection = [];
 
-    protected $position;
+    protected int $position;
 
     public function __construct()
     {
         $this->position = 0;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->position = 0;
     }
@@ -24,22 +24,22 @@ abstract class AbstractCollection implements CollectionInterface {
         return $this->collection[$this->position];
     }
 
-    public function key()
+    public function key(): int
     {
         return $this->position;
     }
 
-    public function next()
+    public function next(): void
     {
         $this->position++;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->collection[$this->position]);
     }
 
-    public function add($item)
+    public function add($item): void
     {
         $this->collection[] = $item;
     }
@@ -58,27 +58,31 @@ abstract class AbstractCollection implements CollectionInterface {
         return empty($this->collection);
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->collection = [];
     }
 
     public function sortCollection(callable $sortRoutine) : CollectionInterface
     {
-        //
+        $collection = $this->collection;
+        usort($collection, $sortRoutine);
+        return new $this($collection);
     }
 
     public function filter(callable $filterRoutine) : CollectionInterface
     {
-        //
+        $collection = $this->collection;
+        $collection = array_filter($collection, $filterRoutine);
+        return new $this($collection);
     }
 
-    public function slice(int $length) : array
+    public function slice(int $length): array
     {
         return array_chunk($this->collection, $length);
     }
 
-    public function hasID(int $id) :bool
+    public function hasID(int $id): bool
     {
         foreach ($this->collection as $item) {
             if ($item->getID() == $id) {
@@ -88,7 +92,7 @@ abstract class AbstractCollection implements CollectionInterface {
         return false;
     }
 
-    public function replace(int $position, $payload)
+    public function replace(int $position, $payload): void
     {
         $this->collection[$position] = $payload;
     }
@@ -114,12 +118,12 @@ abstract class AbstractCollection implements CollectionInterface {
         return count($this->collection);
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->collection[$offset]);
     }
 
-    public function offsetGet($offset): mixed
+    public function offsetGet($offset)
     {
         return $this->collection[$offset];
     }

@@ -8,15 +8,15 @@ use \DateTimeInterface;
 
 abstract class AbstractCalendarPeriod implements CalendarPeriodInterface
 {
-    protected $name;
+    protected string $name;
 
-    protected $periodStart;
+    protected \DateTimeInterface $periodStart;
 
-    protected $periodEnd;
+    protected \DateTimeInterface $periodEnd;
 
-    protected $events;
+    protected CalendarRenderableEventCollectionInterface $events;
 
-    protected $machineName;
+    protected string $machineName;
 
     public function __construct(
         DateTimeInterface $periodStart,

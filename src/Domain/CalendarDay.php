@@ -11,9 +11,7 @@ use \DateTimeInterface;
 
 class CalendarDay extends AbstractCalendarPeriod implements CalendarDayInterface
 {
-    protected $events;
-
-    protected $hours;
+    protected CalendarRenderableEventCollectionInterface $events;
 
     public function __construct(DateTimeInterface $periodStart, DateTimeInterface $periodEnd, string $machineName)
     {
@@ -44,6 +42,6 @@ class CalendarDay extends AbstractCalendarPeriod implements CalendarDayInterface
 
     public function getHours(): CalendarHourCollectionInterface
     {
-        return $this->hours;
+
     }
 }

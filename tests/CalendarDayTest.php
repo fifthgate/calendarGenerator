@@ -32,6 +32,6 @@ class CalendarDayTest extends CalendarServiceTestCase
     public function testGetHours(): void {
         $startDate = new \DateTime('2023-06-27');
         $calendarDay = CalendarGeneratorService::generateCalendarDay($startDate);
-        $assertEquals(24, $calendarDay->getHours());
+        self::assertEquals(24, count($calendarDay->getHours()));
     }
 }

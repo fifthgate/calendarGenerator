@@ -11,9 +11,9 @@ use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableE
 
 class CalendarWeek extends AbstractCalendarPeriod implements CalendarWeekInterface
 {
-    protected $days;
+    protected CalendarDayCollectionInterface $days;
 
-    protected $weekNumber;
+    protected int $weekNumber;
 
     public function getPeriodType() : string
     {
