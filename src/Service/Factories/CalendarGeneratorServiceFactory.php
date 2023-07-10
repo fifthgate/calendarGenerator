@@ -13,7 +13,7 @@ class CalendarGeneratorServiceFactory
 
     private const DATEFORMAT = 'Y-m-d H:i:s';
 
-    private $app;
+    private ApplicationContract $app;
 
     public function __construct(ApplicationContract $app)
     {
@@ -34,7 +34,7 @@ class CalendarGeneratorServiceFactory
             $currentYear = $date->format('Y');
             
             //Generate Calendars for previous and future years.
-            for ($year = $currentYear-3; $year <= $currentYear+3; $year++) {
+            for ($year = $currentYear-3; $year <= ($currentYear + 3); $year++) {
                 $years[$year] = CalendarGeneratorService::generateCalendarYear($year);
             }
             Cache::set(self::CACHEKEY, $years);

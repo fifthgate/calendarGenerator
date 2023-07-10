@@ -3,6 +3,7 @@
 namespace Tests\Feature\Calendar;
 
 use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
+use Fifthgate\CalendarGenerator\Domain\Collection\AbstractCollection;
 
 class CalendarCollectionTest extends CalendarServiceTestCase
 {
@@ -30,5 +31,15 @@ class CalendarCollectionTest extends CalendarServiceTestCase
         $this->assertFalse($cutCollection->delete(999));
         $cutCollection->flush();
         $this->assertTrue($cutCollection->isEmpty());
+    }
+
+    public function testArrayConstruction(): void {
+        $items = [
+            'a',
+            'b',
+            'c'
+        ];
+        $testClass = new class($items) extends AbstractCollection {};
+        self::assertEquals($items, $testClass->toArray());
     }
 }

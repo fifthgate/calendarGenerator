@@ -5,12 +5,14 @@ namespace Fifthgate\CalendarGenerator\Domain\Collection;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CollectionInterface;
 
 class AbstractCollection implements CollectionInterface {
+
     protected array $collection = [];
 
     protected int $position;
 
-    public function __construct()
+    public function __construct(array $collection = [])
     {
+        $this->collection = $collection;
         $this->position = 0;
     }
 
@@ -138,5 +140,9 @@ class AbstractCollection implements CollectionInterface {
         if ($this->offsetExists($offset)) {
             unset($this->collection[$offset]);
         }
+    }
+
+    public function toArray(): array {
+        return $this->collection;
     }
 }

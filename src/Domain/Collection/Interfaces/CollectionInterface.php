@@ -24,4 +24,6 @@ interface CollectionInterface  extends Iterator, ArrayAccess, Countable {
     public function hasID(int $id) :bool;
 
     public function count() : int;
+
+    public function toArray(): array;
 }
