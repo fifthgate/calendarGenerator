@@ -109,4 +109,10 @@ class CalendarServiceTest extends CalendarServiceTestCase
     ): void {
         self::assertEquals($expectedLastDay->format('Y-m-d'), CalendarGeneratorService::getLastDayOfWeek($dayOfWeek)->format('Y-m-d'));
     }
+
+    public function testGetTopOfCurrentHour(): void {
+        $now = new \DateTime();
+        $now->setTime((int) $now->format('H'),0);
+        self::assertEquals($now, CalendarGeneratorService::getTopOfCurrentHour());
+    }
 }

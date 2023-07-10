@@ -154,4 +154,10 @@ class CalendarGeneratorService implements CalendarGeneratorServiceInterface
     {
         return isset($this->yearsCache[$year]) ? $this->yearsCache[$year] : self::generateCalendarYear($year);
     }
+
+    public static function getTopOfCurrentHour(): \DateTimeInterface {
+        $now = new \DateTime();
+        $now->setTime((int) $now->format('H'),0);
+        return $now;
+    }
 }
