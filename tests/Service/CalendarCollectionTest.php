@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature\Calendar;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
-use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
 use Fifthgate\CalendarGenerator\Domain\Collection\AbstractCollection;
 
 class CalendarCollectionTest extends CalendarServiceTestCase

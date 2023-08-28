@@ -1,12 +1,11 @@
 <?php
 
-namespace Fifthgate\CalendarGenerator\Tests;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
 use Carbon\Carbon;
-use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
-use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarRenderableEventInterface;
+use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
 
 class CalendarWeekTest extends CalendarServiceTestCase
 {

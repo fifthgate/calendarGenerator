@@ -1,13 +1,12 @@
 <?php
 
-namespace Fifthgate\CalendarGenerator\Tests;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
+use DateTimeInterface;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarEventCollection;
 use Fifthgate\CalendarGenerator\Domain\GenericCalendarEvent;
-use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarWeekInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarDayInterface;
-
-use \DateTimeInterface;
+use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarWeekInterface;
 
 class CalendarBubbleDownTest extends CalendarServiceTestCase
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Fifthgate\CalendarGenerator\Tests;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Fifthgate\CalendarGenerator\CalendarGeneratorServiceProvider;
-use Fifthgate\CalendarGenerator\Service\Interfaces\CalendarGeneratorServiceInterface;
 use Fifthgate\CalendarGenerator\Domain\Collection\CalendarEventCollection;
-use Fifthgate\CalendarGenerator\Domain\GenericCalendarEvent;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
+use Fifthgate\CalendarGenerator\Domain\GenericCalendarEvent;
+use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class CalendarServiceTestCase extends BaseTestCase
 {
@@ -70,7 +70,10 @@ class CalendarServiceTestCase extends BaseTestCase
         
         parent::setUp();
         $this->loadLaravelMigrations();
-        $this->calendarService = $this->app->get(CalendarGeneratorServiceInterface::class);
+
+        $now = new \DateTimeImmutable();
+        $currentYear = (int) $now->format('Y');
+        $this->calendarService = new CalendarGeneratorService([CalendarGeneratorService::generateCalendarYear($currentYear)]);
     }
 
     protected function getPackageProviders($app)

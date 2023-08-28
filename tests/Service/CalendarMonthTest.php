@@ -1,16 +1,11 @@
 <?php
 
-namespace Fifthgate\CalendarGenerator\Tests;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use Fifthgate\CalendarGenerator\Domain\CalendarMonth;
-use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
-
-use Fifthgate\CalendarGenerator\Tests\CalendarServiceTestCase;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarRenderableEventInterface;
+use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
+use Tests\TestCase;
 
 class CalendarMonthTest extends CalendarServiceTestCase
 {

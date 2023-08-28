@@ -1,10 +1,10 @@
 <?php
 
-namespace Fifthgate\CalendarGenerator\Tests;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
-use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
 use Fifthgate\CalendarGenerator\Domain\Collection\Interfaces\CalendarRenderableEventCollectionInterface;
 use Fifthgate\CalendarGenerator\Domain\Interfaces\CalendarRenderableEventInterface;
+use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
 
 
 class CalendarDayTest extends CalendarServiceTestCase

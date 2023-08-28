@@ -2,6 +2,7 @@
 
 namespace Fifthgate\CalendarGenerator;
 
+use Fifthgate\CalendarGenerator\Console\GenerateCalendarCacheCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
@@ -27,6 +28,9 @@ class CalendarGeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->commands([
+            GenerateCalendarCacheCommand::class
+        ]);
         $this->app->singleton(
              CalendarGeneratorServiceInterface::class,
              function ($app) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fifthgate\CalendarGenerator\Tests;
+namespace Fifthgate\CalendarGenerator\Tests\Service;
 
 use Fifthgate\CalendarGenerator\Service\CalendarGeneratorService;
 
